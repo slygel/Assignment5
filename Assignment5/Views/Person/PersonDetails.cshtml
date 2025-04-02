@@ -1,0 +1,43 @@
+@model Person
+
+<div class="container mt-4">
+    <h2>Person Details</h2>
+    
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">First Name</dt>
+                <dd class="col-sm-9">@Model.FirstName</dd>
+
+                <dt class="col-sm-3">Last Name</dt>
+                <dd class="col-sm-9">@Model.LastName</dd>
+
+                <dt class="col-sm-3">Gender</dt>
+                <dd class="col-sm-9">@Model.Gender</dd>
+
+                <dt class="col-sm-3">Date of Birth</dt>
+                <dd class="col-sm-9">@Model.DateOfBirth.ToShortDateString()</dd>
+
+                <dt class="col-sm-3">Phone Number</dt>
+                <dd class="col-sm-9">@Model.PhoneNumber</dd>
+
+                <dt class="col-sm-3">Birth Place</dt>
+                <dd class="col-sm-9">@Model.BirthPlace</dd>
+
+                <dt class="col-sm-3">Graduated</dt>
+                <dd class="col-sm-9">@(Model.IsGraduated ? "Yes" : "No")</dd>
+            </dl>
+
+            <div class="mt-3">
+                <form asp-action="DeletePerson" asp-controller="Person" asp-route-id="@Model.Id" method="post" style="display:inline;">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger me-2"
+                            onclick="return confirm('Are you sure you want to delete @Model.FirstName @Model.LastName?')">
+                        Delete
+                    </button>
+                </form>
+                <a asp-action="Index" asp-controller="Person" class="btn btn-secondary">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
