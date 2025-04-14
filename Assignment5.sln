@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment5", "Assignment5\Assignment5.csproj", "{3F680342-9A9A-41A3-883F-290FAC4D438F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonsMVC", "PersonsMVC\PersonsMVC.csproj", "{3F680342-9A9A-41A3-883F-290FAC4D438F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{13EA682F-DFD5-4895-97C2-1C6CA36FD427}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonMVC.Tests", "PersonMVC.Tests\PersonMVC.Tests.csproj", "{90693323-854E-4FDA-A0CE-D52CBBA32AA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,9 +14,9 @@ Global
 		{3F680342-9A9A-41A3-883F-290FAC4D438F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F680342-9A9A-41A3-883F-290FAC4D438F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F680342-9A9A-41A3-883F-290FAC4D438F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{13EA682F-DFD5-4895-97C2-1C6CA36FD427}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{13EA682F-DFD5-4895-97C2-1C6CA36FD427}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{13EA682F-DFD5-4895-97C2-1C6CA36FD427}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{13EA682F-DFD5-4895-97C2-1C6CA36FD427}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90693323-854E-4FDA-A0CE-D52CBBA32AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90693323-854E-4FDA-A0CE-D52CBBA32AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90693323-854E-4FDA-A0CE-D52CBBA32AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90693323-854E-4FDA-A0CE-D52CBBA32AA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
