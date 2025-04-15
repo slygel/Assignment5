@@ -132,6 +132,20 @@ public class PersonControllerTest
     }
     
     [Test]
+    public void DeleteConfirmation_ReturnsView_WithDeletedName()
+    {
+        // Arrange
+        string deletedName = "Tai Tue";
+        
+        // Act
+        var result = _controller.DeleteConfirmation(deletedName) as ViewResult;
+        
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual(deletedName, result.ViewData["DeletedName"]);
+    }
+    
+    [Test]
     public void DeletePerson_Post_PersonNotFound_ReturnsNotFound()
     {
         // Arrange
