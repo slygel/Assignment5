@@ -58,11 +58,11 @@ public class PersonServiceTest
         var result = _personService.ListAll();
 
         // Assert
-        Assert.IsNotNull(result);
-        Assert.AreEqual(_people, result);
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result, Is.EqualTo(_people));
         _mockMemoryCache.Verify(m => m.CreateEntry("HelloWorld"), Times.Once());
         _mockPersonData.Verify(d => d.GetAllPeople(), Times.Once());
-        Assert.AreEqual(_people, _cachedPeople);
+        Assert.That(_cachedPeople, Is.EqualTo(_people));
     }
     
     [Test]
@@ -85,10 +85,10 @@ public class PersonServiceTest
         _personService.AddPerson(newPerson);
 
         // Assert
-        Assert.AreEqual(3, newPerson.Id);
+        Assert.That(newPerson.Id, Is.EqualTo(3));
         _mockPersonData.Verify(d => d.GetAllPeople(), Times.Once());
         _mockMemoryCache.Verify(m => m.CreateEntry("HelloWorld"), Times.Once());
-        Assert.IsTrue(_cachedPeople.Contains(newPerson));
+        Assert.That(_cachedPeople, Does.Contain(newPerson));
     }
     
     [Test]
@@ -101,11 +101,11 @@ public class PersonServiceTest
         var result = _personService.GetPersonById(1);
 
         // Assert
-        Assert.IsNotNull(result);
-        Assert.AreEqual(_people[0], result);
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result, Is.EqualTo(_people[0]));
         _mockPersonData.Verify(d => d.GetAllPeople(), Times.Once());
         _mockMemoryCache.Verify(m => m.CreateEntry("HelloWorld"), Times.Once());
-        Assert.AreEqual(_people, _cachedPeople);
+        Assert.That(_cachedPeople, Is.EqualTo(_people));
     }
     
     [Test]
@@ -118,7 +118,7 @@ public class PersonServiceTest
         var result = _personService.GetPersonById(999);
 
         // Assert
-        Assert.IsNull(result);
+        Assert.That(result, Is.Null);
         _mockPersonData.Verify(d => d.GetAllPeople(), Times.Once());
         _mockMemoryCache.Verify(m => m.CreateEntry("HelloWorld"), Times.Once());
     }
@@ -134,11 +134,14 @@ public class PersonServiceTest
         var result = _personService.UpdatePerson(1, updatedPerson);
 
         // Assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
         var person = _cachedPeople.First(p => p.Id == 1);
-        Assert.AreEqual("A", person.LastName);
-        Assert.AreEqual("Ba Vi", person.BirthPlace);
-        Assert.AreEqual(false, person.IsGraduated);
+        Assert.Multiple(() =>
+        {
+            Assert.That(person.LastName, Is.EqualTo("A"));
+            Assert.That(person.BirthPlace, Is.EqualTo("Ba Vi"));
+            Assert.That(person.IsGraduated, Is.EqualTo(false));
+        });
         _mockMemoryCache.Verify(m => m.CreateEntry("HelloWorld"), Times.Once());
     }
 
@@ -153,7 +156,7 @@ public class PersonServiceTest
         var result = _personService.UpdatePerson(1, updatedPerson);
 
         // Assert
-        Assert.IsFalse(result);
+        Assert.That(result, Is.False);
         _mockMemoryCache.Verify(m => m.CreateEntry("HelloWorld"), Times.Never());
     }
 
@@ -167,8 +170,11 @@ public class PersonServiceTest
         var result = _personService.DeletePerson(1);
 
         // Assert
-        Assert.IsTrue(result);
-        Assert.IsFalse(_cachedPeople.Any(p => p.Id == 1));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.True);
+            Assert.That(_cachedPeople.Any(p => p.Id == 1), Is.False);
+        });
         _mockMemoryCache.Verify(m => m.CreateEntry("HelloWorld"), Times.Once());
     }
 
@@ -182,7 +188,7 @@ public class PersonServiceTest
         var result = _personService.DeletePerson(999);
 
         // Assert
-        Assert.IsFalse(result);
+        Assert.That(result, Is.False);
         _mockMemoryCache.Verify(m => m.CreateEntry("HelloWorld"), Times.Never());
     }
 }

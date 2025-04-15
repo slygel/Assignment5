@@ -40,8 +40,8 @@ public class PersonControllerTest
         var result = _controller.Index() as ViewResult;
 
         // Assert
-        Assert.IsNotNull(result);
-        Assert.AreEqual(_people, result.Model);
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.Model, Is.EqualTo(_people));
     }
     
     [Test]
@@ -51,14 +51,14 @@ public class PersonControllerTest
         var result = _controller.CreatePerson() as ViewResult;
 
         // Assert
-        Assert.IsNotNull(result);
+        Assert.That(result, Is.Not.Null);
     }
     
     [Test]
     public void CreatePerson_Post_ValidModel_RedirectsToIndex()
     {
         // Arrange
-        var person = new Person { Id = 3, FirstName = "Alice", LastName = "Brown" };
+        var person = new Person { Id = 3, FirstName = "Tai", LastName = "Tue" };
         _mockPersonService.Setup(s => s.AddPerson(It.IsAny<Person>()));
         _controller.ModelState.Clear();
 
@@ -67,24 +67,24 @@ public class PersonControllerTest
 
         // Assert
         _mockPersonService.Verify(s => s.AddPerson(person), Times.Once());
-        Assert.IsNotNull(result);
-        Assert.AreEqual(nameof(PersonController.Index), result.ActionName);
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.ActionName, Is.EqualTo(nameof(PersonController.Index)));
     }
     
-    // [Test]
-    // public void CreatePerson_Post_InvalidModel_ReturnsView()
-    // {
-    //     // Arrange
-    //     var person = new Person();
-    //     _controller.ModelState.AddModelError("FirstName", "Required");
-    //
-    //     // Act
-    //     var result = _controller.CreatePerson(person) as ViewResult;
-    //
-    //     // Assert
-    //     Assert.IsNotNull(result);
-    //     Assert.AreEqual(person, result.Model);
-    // }
+    [Test]
+    public void CreatePerson_Post_InvalidModel_ReturnsView()
+    {
+        // Arrange
+        var person = new Person();
+        _controller.ModelState.AddModelError("FirstName", "Required");
+    
+        // Act
+        var result = _controller.CreatePerson(person) as ViewResult;
+    
+        // Assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.Model, Is.EqualTo(person));
+    }
     
     [Test]
     public void PersonDetails_PersonExists_ReturnsView()
@@ -97,8 +97,8 @@ public class PersonControllerTest
         var result = _controller.PersonDetails(1) as ViewResult;
 
         // Assert
-        Assert.IsNotNull(result);
-        Assert.AreEqual(person, result.Model);
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.Model, Is.EqualTo(person));
     }
     
     [Test]
@@ -111,7 +111,7 @@ public class PersonControllerTest
         var result = _controller.PersonDetails(999);
 
         // Assert
-        Assert.IsInstanceOf<NotFoundResult>(result);
+        Assert.That(result, Is.InstanceOf<NotFoundResult>());
     }
     
     [Test]
@@ -126,9 +126,9 @@ public class PersonControllerTest
         var result = _controller.DeletePerson(1) as RedirectToActionResult;
 
         // Assert
-        Assert.IsNotNull(result);
-        Assert.AreEqual(nameof(PersonController.DeleteConfirmation), result.ActionName);
-        Assert.AreEqual($"{person.FirstName} {person.LastName}", result.RouteValues["deletedName"]);
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.ActionName, Is.EqualTo(nameof(PersonController.DeleteConfirmation)));
+        Assert.That(result.RouteValues?["deletedName"], Is.EqualTo($"{person.FirstName} {person.LastName}"));
     }
     
     [Test]
@@ -141,8 +141,8 @@ public class PersonControllerTest
         var result = _controller.DeleteConfirmation(deletedName) as ViewResult;
         
         // Assert
-        Assert.IsNotNull(result);
-        Assert.AreEqual(deletedName, result.ViewData["DeletedName"]);
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.ViewData["DeletedName"], Is.EqualTo(deletedName));
     }
     
     [Test]
@@ -155,7 +155,7 @@ public class PersonControllerTest
         var result = _controller.DeletePerson(999);
 
         // Assert
-        Assert.IsInstanceOf<NotFoundResult>(result);
+        Assert.That(result, Is.InstanceOf<NotFoundResult>());
     }
 
     [Test]
@@ -169,8 +169,8 @@ public class PersonControllerTest
         var result = _controller.EditPerson(1) as ViewResult;
 
         // Assert
-        Assert.IsNotNull(result);
-        Assert.AreEqual(person, result.Model);
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.Model, Is.EqualTo(person));
     }
     
     [Test]
@@ -183,7 +183,7 @@ public class PersonControllerTest
         var result = _controller.EditPerson(999);
 
         // Assert
-        Assert.IsInstanceOf<NotFoundResult>(result);
+        Assert.That(result, Is.InstanceOf<NotFoundResult>());
     }
     
     [Test]
@@ -196,8 +196,8 @@ public class PersonControllerTest
         var result = _controller.EditPerson(1, person) as BadRequestObjectResult;
 
         // Assert
-        Assert.IsNotNull(result);
-        Assert.AreEqual("Person ID mismatch", result.Value);
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.Value, Is.EqualTo("Person ID mismatch"));
     }
     
     [Test]
@@ -212,8 +212,8 @@ public class PersonControllerTest
         var result = _controller.EditPerson(1, person) as RedirectToActionResult;
 
         // Assert
-        Assert.IsNotNull(result);
-        Assert.AreEqual(nameof(PersonController.Index), result.ActionName);
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.ActionName, Is.EqualTo(nameof(PersonController.Index)));
     }
     
     [Test]
@@ -227,7 +227,7 @@ public class PersonControllerTest
         var result = _controller.EditPerson(1, person) as ViewResult;
 
         // Assert
-        Assert.IsNotNull(result);
-        Assert.AreEqual(person, result.Model);
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.Model, Is.EqualTo(person));
     }
 }
